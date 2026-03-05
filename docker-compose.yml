@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  api:
+    build: ./api
+    ports:
+      - "8000:8000"
+    environment:
+      - AWS_REGION=us-east-1
+      - S3_UPLOAD_BUCKET=doc-pipeline-raw-uploads-pavan
+      - SQS_QUEUE_URL=https://sqs.us-east-1.amazonaws.com/393881229605/doc-pipeline-queue
+    volumes:
+      - ~/.aws:/root/.aws:ro   # Mount your local AWS credentials for dev only
+
+  worker:
+    build: ./worker
+    environment:
+      - AWS_REGION=us-east-1
+      - S3_UPLOAD_BUCKET=doc-pipeline-raw-uploads-pavan
+      - S3_RESULTS_BUCKET=doc-pipeline-results-pavan
+      - SQS_QUEUE_URL=https://sqs.us-east-1.amazonaws.com/393881229605/doc-pipeline-queue
+      - SNS_TOPIC_ARN=arn:aws:sns:us-east-1:393881229605:doc-pipeline-notifications
+    volumes:
+      - ~/.aws:/root/.aws:ro
