@@ -1,6 +1,6 @@
 # AWS Document Processing Pipeline
 
-A production-style asynchronous document processing pipeline built on AWS. Users upload files (PDF, CSV, images) via a REST API — files are stored in S3, processing jobs are queued in SQS, an EC2 worker processes them, results are saved back to S3, and an SNS notification is sent on completion. Everything runs inside a VPC with IAM role-based authentication, CloudWatch monitoring, and PostgreSQL job tracking.
+A production-style asynchronous document processing pipeline built on AWS. Users upload files (PDF, CSV, images) via a REST API - files are stored in S3, processing jobs are queued in SQS, an EC2 worker processes them, results are saved back to S3, and an SNS notification is sent on completion. Everything runs inside a VPC with IAM role-based authentication, CloudWatch monitoring, and PostgreSQL job tracking.
 
 ---
 
@@ -54,16 +54,16 @@ All logs ──────────────────► [CloudWatch]
 
 ## Features
 
-- **Asynchronous processing** — API returns `202 Accepted` immediately, never blocks
-- **Automatic retry logic** — SQS retries failed jobs 3 times automatically
-- **Dead Letter Queue** — failed messages preserved for inspection, never lost
-- **Zero credentials on servers** — EC2 uses IAM roles, no access keys stored anywhere
-- **Structured JSON logging** — every event logged as JSON, queryable in CloudWatch
-- **Horizontal scaling** — run multiple worker containers against the same SQS queue
-- **Network isolation** — worker and RDS in private subnet, no internet exposure
-- **Encryption at rest** — S3 buckets encrypted with SSE-S3
-- **Job tracking** — PostgreSQL records every job with status, timestamps, and errors
-- **Fault tolerance** — `restart: always` policy auto-recovers crashed containers
+- **Asynchronous processing** - API returns `202 Accepted` immediately, never blocks
+- **Automatic retry logic** - SQS retries failed jobs 3 times automatically
+- **Dead Letter Queue** - failed messages preserved for inspection, never lost
+- **Zero credentials on servers** - EC2 uses IAM roles, no access keys stored anywhere
+- **Structured JSON logging** - every event logged as JSON, queryable in CloudWatch
+- **Horizontal scaling** - run multiple worker containers against the same SQS queue
+- **Network isolation** - worker and RDS in private subnet, no internet exposure
+- **Encryption at rest** - S3 buckets encrypted with SSE-S3
+- **Job tracking** - PostgreSQL records every job with status, timestamps, and errors
+- **Fault tolerance** - `restart: always` policy auto-recovers crashed containers
 
 ---
 
